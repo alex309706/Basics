@@ -46,6 +46,22 @@ namespace Grouping
             {
                 Console.WriteLine($"Name of company : {group.NameOfCompany} Count of devices : {group.count}");
             }
+            Console.WriteLine("Final");
+            var finalResult = phones.GroupBy(phone => phone.Company)
+                .Select(group => new
+                {
+                    Name = group.Key,
+                    Count = group.Count(),
+                    Phones = group.Select(phone => phone)
+                });
+            foreach (var group in finalResult)
+            {
+                Console.WriteLine($"{group.Name} : {group.Count}");
+                foreach (Phone phone in group.Phones)
+                    Console.WriteLine(phone.Name);
+                Console.WriteLine();
+            }
+
         }
     }
 }
